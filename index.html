@@ -12,7 +12,29 @@
   <body>
   
     <form name="myForm" action="handler.php" method="POST">
-          
+          <?php
+// Check if form was submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get form values
+    $size = $_POST['size'];
+    $toppings = $_POST['toppings'];
+
+    // Calculate base price
+    $base = ($size == 'L') ? 6.00 : 10.00;
+    
+    // Set topping prices
+    $topping_prices = [
+        1 => 1.00,
+        2 => 1.75,
+        3 => 2.50,
+        4 => 3.35
+    ];
+
+    // Calculate totals
+    $subtotal = $base + $topping_prices[$toppings];
+    $tax = $subtotal * 0.13;
+    $total = $subtotal + $tax;
+
     </form>
 
   </body>
